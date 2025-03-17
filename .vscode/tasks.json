@@ -1,0 +1,218 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "pytest",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "pytest -n auto --durations=30 --verbose --showlocals --dist=worksteal > ${workspaceFolder}/log/pytest_$(date +'%Y-%m-%d_%H-%M-%S').log"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            },
+            "problemMatcher": []
+        },
+        {
+            // 依存ツールhttps://github.com/google/yamlfmt
+            "label": "terraform_init",
+            "type": "shell",
+            "command": "terraform",
+            "args": [
+                "init"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "terraform_plan",
+            "type": "shell",
+            "command": "terraform",
+            "args": [
+                "plan"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "terraform_plan_output_log",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "terraform plan -no-color > ${workspaceFolder}/log/plan_$(date +'%Y-%m-%d_%H-%M-%S').log 2>&1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "terraform_apply",
+            "type": "shell",
+            "command": "terraform",
+            "args": [
+                "apply"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "terraform_apply_output_log",
+            "type": "shell",
+            "command": "bash",
+            "args": [
+                "-c",
+                "terraform apply -no-color -auto-approve > ${workspaceFolder}/log/apply_$(date +'%Y-%m-%d_%H-%M-%S').log 2>&1"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "terraform_format",
+            "type": "shell",
+            "command": "terraform",
+            "args": [
+                "fmt",
+                "-recursive"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "terraform_apply_pytest",
+            "type": "shell",
+            "dependsOn": [
+                "terraform_apply",
+                "pytest"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": false
+            }
+        },
+        // https://github.com/google/yamlfmtを使用
+        {
+            "label": "yaml_lint",
+            "type": "shell",
+            "command": "yamlfmt",
+            "args": [
+                "-lint",
+                "${file}"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "yaml_fmt",
+            "type": "shell",
+            "command": "yamlfmt",
+            "args": [
+                "${file}"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "check_password",
+            "type": "shell",
+            "command": "echo",
+            "args": [
+                "$SNOWFLAKE_PASSWORD"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "develop_pull",
+            "type": "shell",
+            "command": "git",
+            "args": [
+                "switch",
+                "develop"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "merge_from_develop",
+            "type": "shell",
+            "command": "git",
+            "args": [
+                "merge",
+                "develop"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        },
+        {
+            "label": "clean log",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "log/*"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            }
+        }
+    ]
+}
