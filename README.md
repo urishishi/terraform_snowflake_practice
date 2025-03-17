@@ -1,0 +1,2 @@
+# terraform_snowflake_practice
+サンドボックス環境でのsnowflake+terraform練習
