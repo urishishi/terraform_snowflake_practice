@@ -12,10 +12,12 @@ provider "snowflake" {
   organization_name = "ON44798" # required if not using profile. Can also be set via SNOWFLAKE_ORGANIZATION_NAME env var
   account_name      = "SANDBOX" # required if not using profile. Can also be set via SNOWFLAKE_ACCOUNT_NAME env var
   user              = "YAMAOKA_TERRAFORM_USER" # required if not using profile or token. Can also be set via SNOWFLAKE_USER env var
-  password          = ""
 
   // optional
   role      = "YAMAOKA_TERRAFORM_ROLE"
+  authenticator          = "SNOWFLAKE_JWT"
+  private_key            = file("C:\\Users\\atsuhito.yamaoka\\.ssh\\datumsnowflake")
+  # private_key_passphrase = var.private_key_passphrase
   # host      = "..."
   # warehouse = "..."
   # params = {
