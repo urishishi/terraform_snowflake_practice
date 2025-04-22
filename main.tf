@@ -1,9 +1,9 @@
 terraform {
-  required_version = "1.11.2"
+  required_version = "1.11.4"
   required_providers {
     snowflake = {
         source = "Snowflake-Labs/snowflake"
-        version = "1.0.4"
+        version = "1.0.5"
     }
   }
 }
@@ -16,7 +16,7 @@ provider "snowflake" {
   // optional
   role      = "YAMAOKA_TERRAFORM_ROLE"
   authenticator          = "SNOWFLAKE_JWT"
-  private_key            = file("C:\\Users\\atsuhito.yamaoka\\.ssh\\datumsnowflake")
+  private_key            = file("C:\\Users\\AtsuhitoYamaoka\\.ssh\\datumsnowflake")
   # private_key_passphrase = var.private_key_passphrase
   # host      = "..."
   # warehouse = "..."
